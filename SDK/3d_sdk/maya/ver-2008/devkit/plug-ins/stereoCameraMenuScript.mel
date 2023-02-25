@@ -1,4 +1,0 @@
-
-
-global proc stereoCameraMenuScript( string $panelName ) {
-}
