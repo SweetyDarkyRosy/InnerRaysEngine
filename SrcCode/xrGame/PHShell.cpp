@@ -34,7 +34,6 @@
 #include "PHElementInline.h"
 #include "PhysicsShellAnimator.h"
 
-#include <boost/noncopyable.hpp>
 #ifdef DEBUG
 #include	"phdebug.h"
 #endif
@@ -1165,7 +1164,7 @@ void CPHShell::EnabledCallbacks(BOOL val)
 
 
 template< typename T>
-void for_each_bone_id( IKinematics &K, T op )
+void for_each_bone_id(IKinematics& K, T&& op)
 {
 	u16 bn =  K.LL_BoneCount();
 	for(u16 i = 0; i < bn; ++i )
@@ -1202,7 +1201,7 @@ void CPHShell::SetCallbacks( )
 	};
 	std::for_each( elements.begin(), elements.end(), set_bone_callback() );
 
-	struct set_bone_reference: private boost::noncopyable
+	struct set_bone_reference
 	{
 		IKinematics &K;
 		set_bone_reference( IKinematics &K_ ): K( K_ ){}

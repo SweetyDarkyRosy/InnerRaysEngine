@@ -576,6 +576,7 @@ void CUIGameCTA::SetPlayerItemsToBuyMenu()
 		);
 		TryToDefuseAllWeapons(add_ammo);
 		
+		/* DEPRECATED
 		std::for_each(
 			actor->inventory().m_slots.begin(),
 			actor->inventory().m_slots.end(),
@@ -614,6 +615,36 @@ void CUIGameCTA::SetPlayerItemsToBuyMenu()
 				this
 			)
 		);
+		*/
+
+		/* From Call of Pripyat | OpenXRay
+		for (u16 i = inventory.FirstSlot(); i <= inventory.LastSlot(); i++)
+		{
+			BuyMenuItemInserter(inventory.ItemFromSlot(i));
+		}
+		*/
+
+		auto& inventory = actor->inventory();
+		for (auto slot = inventory.m_slots.begin(); slot <= inventory.m_slots.end(); slot++)
+		{
+			BuyMenuItemInserter(*slot);
+		}
+
+		for (auto& item : actor->inventory().m_belt)
+		{
+			BuyMenuItemInserter(item);
+		}
+
+		for (auto& item : actor->inventory().m_ruck)
+		{
+			BuyMenuItemInserter(item);
+		}
+
+		for (auto& ammo_item : add_ammo)
+		{
+			AdditionalAmmoInserter(ammo_item);
+		}
+
 	} else
 	{
 		SetPlayerDefItemsToBuyMenu();

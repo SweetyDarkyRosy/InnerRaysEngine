@@ -2,14 +2,20 @@
 #pragma hdrstop
 
 #pragma warning(disable:4995)
+/* DEPRECATED
 #include <d3dx9.h>
+*/
+#include <ThirdParty/DirectX/Include/d3dx9.h>
 #ifndef _EDITOR
 #pragma comment( lib, "d3dx9.lib"		)
 #include "../../xrEngine/render.h"
 #endif
 #pragma warning(default:4995)
 
+/* DEPRECATED
 #include <D3DX10Core.h>
+*/
+#include <ThirdParty/DirectX/Include/D3DX10core.h>
 
 #include "../xrRender/ResourceManager.h"
 #include "../xrRender/tss.h"

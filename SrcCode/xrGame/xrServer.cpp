@@ -3,6 +3,9 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "pch_script.h"
+
+#include <functional>
+
 #include "xrServer.h"
 #include "xrMessages.h"
 #include "xrServer_Objects_ALife_All.h"

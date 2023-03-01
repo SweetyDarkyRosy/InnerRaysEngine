@@ -11,11 +11,18 @@ void SZoneMapEntityData::script_register(lua_State *L)
 			luabind::class_<SZoneMapEntityData>("SZoneMapEntityData")
 			.def(	constructor<>()								)
 			.def_readwrite("pos",				&SZoneMapEntityData::pos	)
-			.def_readwrite("color",				&SZoneMapEntityData::color	),
+			//.def_readwrite("color",				&SZoneMapEntityData::color	),
+			.def_readwrite("color",				&SZoneMapEntityData::color	)
 
+			/* DEPRECATED
 			luabind::class_< xr_vector<SZoneMapEntityData> >("ZoneMapEntities")
 				.def("push_back",				(void (xr_vector<SZoneMapEntityData>::*)(SZoneMapEntityData&))(&xr_vector<SZoneMapEntityData>::push_back))
-			
+			*/
+
+			/* DEPRECATED
+			luabind::class_<xr_vector<SZoneMapEntityData> >("ZoneMapEntities")
+				.def("push_back", static_cast<void (xr_vector<SZoneMapEntityData>::*)(const SZoneMapEntityData&)>(&xr_vector<SZoneMapEntityData>::push_back))
+			*/
 		];
 }
 

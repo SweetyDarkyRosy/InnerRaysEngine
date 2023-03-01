@@ -1,5 +1,11 @@
 #include "stdafx.h"
+
+/* DEPRECATED
 #include "dxerr9.h"
+*/
+#include <ThirdParty/DirectX/Include/DxErr.h>
+
+
 #include "NET_Common.h"
 #include "net_server.h"
 #include <functional>

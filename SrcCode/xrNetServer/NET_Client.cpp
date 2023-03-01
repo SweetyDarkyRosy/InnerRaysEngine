@@ -9,7 +9,12 @@
 #pragma warning(push)
 #pragma warning(disable:4995)
 #include <malloc.h>
+
+/* DEPRECATED
 #include "dxerr9.h"
+*/
+#include <ThirdParty/DirectX/Include/DxErr.h>
+
 
 //#pragma warning(pop)
 

@@ -159,8 +159,14 @@ IC	void	xr_delete	(T* const &ptr)
 {
 	if (ptr) 
 	{
+		/* DEPRECATED
 		xr_special_free<is_polymorphic<T>::result,T>(ptr);
 		const_cast<T*&>(ptr) = NULL;
+		*/
+
+		T*& tempPtr = const_cast<T*&>(ptr);
+		xr_special_free<std::is_polymorphic_v<T>, T>()(tempPtr);
+		tempPtr = nullptr;
 	}
 }
 

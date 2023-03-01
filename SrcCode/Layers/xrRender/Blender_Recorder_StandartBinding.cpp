@@ -3,7 +3,10 @@
 
 #pragma warning(push)
 #pragma warning(disable:4995)
+/* DEPRECATED
 #include <d3dx9.h>
+*/
+#include <ThirdParty/DirectX/Include/d3dx9.h>
 #pragma warning(pop)
 
 #include "ResourceManager.h"

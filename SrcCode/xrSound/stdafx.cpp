@@ -7,6 +7,8 @@
 // TODO: reference any additional headers you need in STDAFX.H
 // and not in this file
 
+#pragma comment(lib, "legacy_stdio_definitions.lib")
+
 #ifdef __BORLANDC__
 #	pragma comment(lib,	"eaxB.lib"			)
 #	pragma comment(lib,	"vorbisfileB.lib"	)

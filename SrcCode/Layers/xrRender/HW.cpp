@@ -5,7 +5,10 @@
 #pragma hdrstop
 
 #pragma warning(disable:4995)
+/* DEPRECATED
 #include <d3dx9.h>
+*/
+#include <ThirdParty/DirectX/Include/d3dx9.h>
 #pragma warning(default:4995)
 #include "HW.h"
 #include "../../xrEngine/XR_IOConsole.h"

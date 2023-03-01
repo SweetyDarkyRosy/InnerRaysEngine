@@ -7,7 +7,10 @@
 #pragma warning(disable:4995)
 #include "../../xrEngine/stdafx.h"
 #pragma warning(disable:4995)
+/* DEPRECATED
 #include <d3dx9.h>
+*/
+#include <ThirdParty/DirectX/Include/d3dx9.h>
 #pragma warning(default:4995)
 #pragma warning(disable:4714)
 #pragma warning( 4 : 4018 )
@@ -15,7 +18,10 @@
 #pragma warning(disable:4237)
 
 #include "d3d10_1.h"
+#include <ThirdParty/DirectX/Include/D3DX10core.h>
+/* DEPRECATED
 #include <D3Dx10core.h>
+*/
 
 #include "../xrRender/xrD3DDefs.h"
 

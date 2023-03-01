@@ -22,20 +22,24 @@
  * @param ptr - pointer to pre-allocated memory block.
  * @return pointer to allocated memory block.
  */
+/* DEPRECATED
 inline void* operator new(size_t size, void* ptr)
 {
 	size;
 	return ptr;
 }
+*/
 
 /**
  * @brief Matching in-place "delete" operator.
  * @param ptr1 - pointer to pre-allocated memory block.
  * @param ptr2 - pointer to pre-allocated memory block.
  */
+/* DEPRECATED
 inline void operator delete(void* ptr1, void* ptr2)
 {
 	ptr1; ptr2;
 }
+*/
 
 #endif

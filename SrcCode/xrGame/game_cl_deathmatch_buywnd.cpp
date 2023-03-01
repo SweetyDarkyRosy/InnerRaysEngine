@@ -243,6 +243,7 @@ void game_cl_Deathmatch::SetBuyMenuItems		(PRESET_ITEMS* pItems, BOOL OnlyPreset
 			}
 		};
 
+		/* DEPRECATED
 		std::for_each(add_ammo.begin(), add_ammo.end(),
 			std::bind1st(
 				std::mem_fun<void, game_cl_Deathmatch, aditional_ammo_t::value_type const &>(
@@ -251,6 +252,12 @@ void game_cl_Deathmatch::SetBuyMenuItems		(PRESET_ITEMS* pItems, BOOL OnlyPreset
 				this
 			)
 		);
+		*/
+
+		for (const auto& item : add_ammo)
+		{
+			AdditionalAmmoInserter(item);
+		}
 	}
 	else
 	{

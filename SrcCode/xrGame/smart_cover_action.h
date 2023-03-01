@@ -13,13 +13,11 @@
 #include "script_space_forward.h"
 #include "ai_monster_space.h"
 #include "associative_vector.h"
-#include "debug_make_final.hpp"
+
 
 namespace smart_cover{
 
-class action :
-	private debug::make_final<action>,
-	private boost::noncopyable
+class action : private boost::noncopyable
 {
 private:
 	class animation_predicate {

@@ -1,2 +1,3 @@
 # Visual Studio solution local data
 /SrcCode/.vs/*
+/SDK/sources/OpenAutomate/.vs/*

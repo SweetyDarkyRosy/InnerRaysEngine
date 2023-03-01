@@ -1,4 +1,7 @@
 #include "stdafx.h"
+
+#include <functional>
+
 #include "game_sv_capture_the_artefact.h"
 #include "HUDmanager.h"
 #include "xrserver_objects_alife_monsters.h"

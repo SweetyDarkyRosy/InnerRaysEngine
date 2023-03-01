@@ -16,15 +16,10 @@
 using editor::environment::ambients::effect_id;
 using editor::environment::effects::manager;
 
-effect_id::effect_id								(
-		manager const& manager,
-		shared_str const& id
-	) :
-	m_manager						(manager),
-	m_id							(id),
-	m_property_holder				(0)
-{
-}
+
+editor::environment::ambients::effect_id::effect_id(effects::manager const& manager, shared_str const& id) :
+	m_manager(manager), m_id(id), m_property_holder(0)
+{}
 
 effect_id::~effect_id								()
 {
