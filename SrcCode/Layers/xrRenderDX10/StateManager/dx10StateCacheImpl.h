@@ -65,6 +65,8 @@ IDeviceState*
 dx10StateCache<IDeviceState, StateDecs>
 ::FindState( const StateDecs& desc, u32 StateCRC )
 {
+	u32 res = 0xffffffff;
+
 	for (u32 i=0; i<m_StateArray.size(); ++i)
 	{
 		if (m_StateArray[i].m_crc==StateCRC)
@@ -73,22 +75,28 @@ dx10StateCache<IDeviceState, StateDecs>
 			m_StateArray[i].m_pState->GetDesc(&descCandidate);
 			//if ( !memcmp(&descCandidate, &desc, sizeof(desc)) )
 			if (descCandidate==desc)
-				//break;
-			//	TEST
 			{
+				res = i;
 				break;
-			}
-			else
-			{
-				VERIFY(0);
 			}
 		}
 	}
 
+	if (res != 0xffffffff)
+	{
+		return m_StateArray[res].m_pState;
+	}
+	else
+	{
+		return nullptr;
+	}
+
+	/* DEPRECATED
 	if (i!=m_StateArray.size())
 		return m_StateArray[i].m_pState;
 	else
 		return NULL;
+	*/
 }
 
 #endif	//	dx10StateCacheImpl_included
