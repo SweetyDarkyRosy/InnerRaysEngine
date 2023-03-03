@@ -1,17 +1,16 @@
-#ifndef	dx10StateCacheImpl_included
-#define	dx10StateCacheImpl_included
+#ifndef dx10StateCacheImpl_included
+#define dx10StateCacheImpl_included
 #pragma once
 
 #include "../dx10StateUtils.h"
 
+
 using dx10StateUtils::operator==;
 
 template <class IDeviceState, class StateDecs>
-IDeviceState* 
-dx10StateCache<IDeviceState, StateDecs>
-::GetState( SimulatorStates& state_code )
+IDeviceState* dx10StateCache<IDeviceState, StateDecs>::GetState(SimulatorStates& state_code)
 {
-	StateDecs		desc;
+	StateDecs desc;
 	dx10StateUtils::ResetDescription(desc);
 	state_code.UpdateDesc(desc);
 
@@ -36,17 +35,15 @@ dx10StateCache<IDeviceState, StateDecs>
 }
 
 template <class IDeviceState, class StateDecs>
-IDeviceState* 
-dx10StateCache<IDeviceState, StateDecs>
-::GetState( StateDecs& desc )
+IDeviceState* dx10StateCache<IDeviceState, StateDecs>::GetState(StateDecs& desc)
 {
-	IDeviceState*	pResult;
+	IDeviceState* pResult;
 
 	dx10StateUtils::ValidateState(desc);
 
 	u32 crc = dx10StateUtils::GetHash(desc);
 
-	pResult = FindState( desc, crc);
+	pResult = FindState(desc, crc);
 
 	if (!pResult)
 	{
@@ -61,20 +58,18 @@ dx10StateCache<IDeviceState, StateDecs>
 }
 
 template <class IDeviceState, class StateDecs>
-IDeviceState* 
-dx10StateCache<IDeviceState, StateDecs>
-::FindState( const StateDecs& desc, u32 StateCRC )
+IDeviceState* dx10StateCache<IDeviceState, StateDecs>::FindState(const StateDecs& desc, u32 StateCRC)
 {
 	u32 res = 0xffffffff;
 
-	for (u32 i=0; i<m_StateArray.size(); ++i)
+	for (u32 i = 0; i < m_StateArray.size(); ++i)
 	{
-		if (m_StateArray[i].m_crc==StateCRC)
+		if (m_StateArray[i].m_crc == StateCRC)
 		{
-			StateDecs	descCandidate;
+			StateDecs descCandidate;
 			m_StateArray[i].m_pState->GetDesc(&descCandidate);
-			//if ( !memcmp(&descCandidate, &desc, sizeof(desc)) )
-			if (descCandidate==desc)
+			//if (!memcmp(&descCandidate, &desc, sizeof(desc)))
+			if (descCandidate == desc)
 			{
 				res = i;
 				break;
@@ -92,11 +87,15 @@ dx10StateCache<IDeviceState, StateDecs>
 	}
 
 	/* DEPRECATED
-	if (i!=m_StateArray.size())
+	if (i != m_StateArray.size())
+	{
 		return m_StateArray[i].m_pState;
+	}
 	else
+	{
 		return NULL;
+	}
 	*/
 }
 
-#endif	//	dx10StateCacheImpl_included
+#endif // !dx10StateCacheImpl_included
