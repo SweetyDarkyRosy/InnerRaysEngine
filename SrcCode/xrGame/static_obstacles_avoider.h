@@ -36,7 +36,8 @@ private:
 protected:
 	virtual	void							query					();
 	IC		const stalker_movement_manager_obstacles	&movement_manager		() const;
-	IC		const CAI_Stalker				&object					() const;
+	//IC		const CAI_Stalker				&object					() const;
+	const CAI_Stalker& object() const;
 
 public:
 	IC										static_obstacles_avoider();

@@ -697,3 +697,29 @@ extern void sell_condition	(float friend_factor, float enemy_factor);
 extern void buy_condition	(CScriptIniFile *ini_file, LPCSTR section);
 extern void buy_condition	(float friend_factor, float enemy_factor);
 extern void show_condition	(CScriptIniFile *ini_file, LPCSTR section);
+
+
+#include "gameobject.h"
+#include "ai_space.h"
+#include "script_engine.h"
+
+
+IC CGameObject &CScriptGameObject::object() const
+{
+#ifdef DEBUG
+	__try
+	{
+		if (m_game_object && m_game_object->lua_game_object() == this)
+		{
+			return *m_game_object;
+		}
+	}
+	__except(EXCEPTION_EXECUTE_HANDLER)
+	{
+	}
+
+	ai().script_engine().script_log(eLuaMessageTypeError, "you are trying to use a destroyed object [%x]", m_game_object);
+	THROW2(m_game_object && m_game_object->lua_game_object() == this, "Probably, you are trying to use a destroyed object!");
+#endif
+	return *m_game_object;
+}

@@ -7,6 +7,7 @@ namespace boost
 }
 #endif // LUABIND_NO_EXCEPTIONS
 
+/*
 #ifdef NDEBUG
 
 namespace std {
@@ -17,3 +18,4 @@ namespace std {
 } // namespace std
 
 #endif // #ifdef NDEBUG
+*/

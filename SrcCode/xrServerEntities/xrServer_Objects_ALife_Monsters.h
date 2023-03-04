@@ -215,8 +215,10 @@ public:
 	IC		float					get_health				() const								{ return fHealth;}
 	IC		ALife::_OBJECT_ID		get_killer_id			() const								{ return m_killer_id; }
 
-	IC		void					set_health				(float const health_value);
-	IC		void					set_killer_id			(ALife::_OBJECT_ID const killer_id);
+	//IC		void					set_health				(float const health_value);
+	void set_health(float const health_value);
+	//IC		void					set_killer_id			(ALife::_OBJECT_ID const killer_id);
+	void set_killer_id(ALife::_OBJECT_ID const killer_id);
 
 	IC		bool					g_Alive					() const								{ return (get_health() > 0.f);}
 	virtual bool					used_ai_locations		() const;
@@ -565,5 +567,16 @@ add_to_type_list(CSE_ALifeOnlineOfflineGroup)
 #define script_type_list save_type_list(CSE_ALifeOnlineOfflineGroup)
 
 #pragma warning(pop)
+
+IC void CSE_ALifeCreatureAbstract::set_health(float const health_value)
+{
+	VERIFY(!((get_killer_id() != u16(-1)) && (health_value > 0.f)));
+	fHealth = health_value;
+}
+
+IC void CSE_ALifeCreatureAbstract::set_killer_id(ALife::_OBJECT_ID const killer_id)
+{
+	m_killer_id = killer_id;
+}
 
 #endif

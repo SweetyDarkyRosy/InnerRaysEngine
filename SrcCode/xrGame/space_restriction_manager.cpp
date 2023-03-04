@@ -15,11 +15,13 @@
 
 const u32 time_to_delete = 300000;
 
+/*
 struct CSpaceRestrictionManager::CClientRestriction {
 	CRestrictionPtr					m_restriction;
 	shared_str						m_base_out_restrictions;
 	shared_str						m_base_in_restrictions;
 };
+*/
 
 CSpaceRestrictionManager::CSpaceRestrictionManager			()
 {
@@ -93,12 +95,14 @@ shared_str	CSpaceRestrictionManager::base_out_restrictions		(ALife::_OBJECT_ID i
 	return							((*I).second.m_base_out_restrictions);
 }
 
+/*
 IC	CSpaceRestrictionManager::CRestrictionPtr CSpaceRestrictionManager::restriction	(ALife::_OBJECT_ID id)
 {
 	CLIENT_RESTRICTIONS::iterator	I = m_clients->find(id);
 	VERIFY							(m_clients->end() != I);
 	return							((*I).second.m_restriction);
 }
+*/
 
 IC	void CSpaceRestrictionManager::collect_garbage				()
 {
@@ -190,6 +194,7 @@ u32	CSpaceRestrictionManager::accessible_nearest			(ALife::_OBJECT_ID id, const 
 	return						(client_restriction->accessible_nearest(position,result));
 }
 
+/*
 IC	bool CSpaceRestrictionManager::restriction_presented	(shared_str restrictions, shared_str restriction) const
 {
 	string4096					m_temp;
@@ -198,6 +203,7 @@ IC	bool CSpaceRestrictionManager::restriction_presented	(shared_str restrictions
 			return				(true);
 	return						(false);
 }
+*/
 
 IC	void CSpaceRestrictionManager::join_restrictions		(shared_str &restrictions, shared_str update)
 {

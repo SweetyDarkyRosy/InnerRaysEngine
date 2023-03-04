@@ -16,8 +16,8 @@
 
 #include	"../xrRender/dxRenderDeviceRender.h"
 
+/*
 #ifdef NDEBUG
-
 namespace std
 {
 
@@ -27,8 +27,8 @@ void terminate ()
 }
 
 } // namespace std
-
 #endif // #ifdef NDEBUG
+*/
 
 using namespace				luabind;
 

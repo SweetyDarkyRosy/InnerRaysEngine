@@ -23,10 +23,18 @@ class CSpaceRestrictionManager : public CSpaceRestrictionHolder {
 #ifdef DEBUG
 	friend class CLevelGraph;
 #endif
-	struct CClientRestriction;
+	//struct CClientRestriction;
 
 protected:
 	typedef intrusive_ptr<CSpaceRestriction,RestrictionSpace::CTimeIntrusiveBase> CRestrictionPtr;
+
+	struct CClientRestriction
+	{
+		CRestrictionPtr m_restriction;
+		shared_str m_base_out_restrictions;
+		shared_str m_base_in_restrictions;
+	};
+
 	typedef xr_map<shared_str,CSpaceRestriction*>				SPACE_RESTRICTIONS;
 	typedef xr_map<ALife::_OBJECT_ID,CClientRestriction>		CLIENT_RESTRICTIONS;
 

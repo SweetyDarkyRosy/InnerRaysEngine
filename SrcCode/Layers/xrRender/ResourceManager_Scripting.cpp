@@ -16,8 +16,8 @@
 
 using namespace				luabind;
 
+/*
 #ifdef NDEBUG
-
 namespace std
 {
 
@@ -27,8 +27,8 @@ void terminate	()
 }
 
 } // namespace std
-
 #endif // #ifdef NDEBUG
+*/
 
 #ifdef	DEBUG
 #define MDB	Memory.dbg_check()

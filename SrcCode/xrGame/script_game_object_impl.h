@@ -8,6 +8,7 @@
 
 #pragma once
 
+/*
 #include "gameobject.h"
 #include "ai_space.h"
 #include "script_engine.h"
@@ -27,3 +28,4 @@ IC	CGameObject &CScriptGameObject::object	() const
 #endif // #ifdef DEBUG
 	return			(*m_game_object);
 }
+*/

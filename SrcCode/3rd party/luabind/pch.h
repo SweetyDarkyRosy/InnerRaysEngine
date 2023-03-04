@@ -4,6 +4,7 @@
 #include <luabind/lua_include.hpp>
 #include <luabind/luabind.hpp>
 
+/*
 #ifdef NDEBUG
 
 namespace std {
@@ -11,5 +12,6 @@ namespace std {
 } // namespace std
 
 #endif // #ifdef NDEBUG
+*/
 
 #endif // PCH_H
