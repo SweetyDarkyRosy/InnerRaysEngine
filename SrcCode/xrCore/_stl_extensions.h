@@ -330,7 +330,7 @@ public:
 
 };
 
-template <typename K, class V, class P = std::less<K>, typename allocator = xalloc<std::pair<K, V>>>
+template <typename K, class V, class P = std::less<K>, typename allocator = xalloc<std::pair<const K, V>>>
 class xr_map : public std::map<K, V, P, allocator>
 {
 public:
@@ -338,7 +338,7 @@ public:
 
 };
 
-template <typename K, class V, class P = std::less<K>, typename allocator = xalloc<std::pair<K, V>>>
+template <typename K, class V, class P = std::less<K>, typename allocator = xalloc<std::pair<const K, V>>>
 class xr_multimap : public std::multimap<K, V, P, allocator>
 {
 public:
@@ -357,7 +357,7 @@ public:
 };
 */
 
-template <typename K, class V, class Traits = std::equal_to<K>, typename allocator = xalloc<std::pair<K, V>>>
+template <typename K, class V, class Traits = std::equal_to<K>, typename allocator = xalloc<std::pair<const K, V>>>
 class xr_hash_map : public std::unordered_map<K, V, std::hash<K>, Traits, allocator>
 {
 public:
@@ -377,12 +377,12 @@ inline std::pair<_Ty1, _Ty2> mk_pair(_Ty1 _Val1, _Ty2 _Val2)
 }
 
 
-struct pred_str : public std::binary_function<char*, char*, bool>
+struct pred_str
 {
 	IC bool operator()(const char* x, const char* y) const { return xr_strcmp(x, y) < 0; }
 };
 
-struct pred_stri : public std::binary_function<char*, char*, bool>
+struct pred_stri
 {
 	IC bool operator()(const char* x, const char* y) const { return stricmp(x, y) < 0; }
 };

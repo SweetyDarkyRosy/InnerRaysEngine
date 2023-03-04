@@ -54,6 +54,8 @@ protected:
 				_index_type,
 				_iteration_type
 			> inherited;
+public:
+	typedef typename inherited::const_iterator		const_iterator;
 
 protected:
 	int					x1;

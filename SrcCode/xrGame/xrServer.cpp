@@ -176,16 +176,26 @@ void		xrServer::client_Destroy	(IClient* C)
 	// Delete assosiated entity
 	// xrClientData*	D = (xrClientData*)C;
 	// CSE_Abstract* E = D->owner;
+
+	/* DEPRECATED
 	IClient* deleted_client = net_players.FindAndEraseDisconnectedClient(
 		std::bind1st(std::equal_to<IClient*>(), C)
 	);
+	*/
+
+	IClient* deleted_client = net_players.FindAndEraseClient([&C](IClient* A)->bool { return A == C; });
 	if (deleted_client)
 	{
 		xr_delete(deleted_client);
 	}
+
+	/* DEPRECATED
 	IClient* alife_client = net_players.FindAndEraseClient(
 		std::bind1st(std::equal_to<IClient*>(), C)
 	);
+	*/
+
+	IClient* alife_client = net_players.FindAndEraseClient([&C](IClient* A)->bool { return A == C; });
 	//VERIFY(alife_client);
 	if (alife_client)
 	{
