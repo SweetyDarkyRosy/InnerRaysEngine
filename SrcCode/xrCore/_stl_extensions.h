@@ -285,7 +285,12 @@ public:
 	typedef typename allocator_type::value_type			value_type;
 	typedef typename allocator_type::size_type			size_type;
 
-	//explicit stack(const allocator_type& _Al = allocator_type()) : c(_Al) {}
+	/*
+	explicit stack(const allocator_type& _Al = allocator_type()) :
+		c(_Al)
+	{}
+	*/
+
 	allocator_type get_allocator() const { return (c.get_allocator()); }
 	bool empty() const { return (c.empty()); }
 	u32 size() const { return c.size(); }
@@ -343,7 +348,6 @@ class xr_multimap : public std::multimap<K, V, P, allocator>
 {
 public:
 	u32 size() const { return (u32)__super::size(); }
-
 
 };
 
