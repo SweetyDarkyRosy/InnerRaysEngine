@@ -2,8 +2,8 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-#if !defined(AFX_ENGINE_H__22802DD7_D7EB_4234_9781_E237657471AC__INCLUDED_)
-#define AFX_ENGINE_H__22802DD7_D7EB_4234_9781_E237657471AC__INCLUDED_
+#ifndef __INNER_RAYS_ENGINE_ENGINE_CLASS_H__
+#define __INNER_RAYS_ENGINE_ENGINE_CLASS_H__
 #pragma once
 
 #include "engineAPI.h"
@@ -17,20 +17,23 @@ class ENGINE_API CEngine
 	HMODULE hPSGP;
 
 public:
+	// Constructor
 	CEngine();
+	// Destructor
 	~CEngine();
+
+public:
+	void Initialize();
+	void Destroy();
 
 public:
 	CEngineAPI External;
 	CEventAPI Event;
 	CSheduler Sheduler;
 
-	void Initialize();
-	void Destroy();
-
 };
 
-ENGINE_API extern xrDispatchTable	PSGP;
-ENGINE_API extern CEngine			Engine;
+ENGINE_API extern xrDispatchTable		PSGP;
+ENGINE_API extern CEngine				Engine;
 
-#endif // !AFX_ENGINE_H__22802DD7_D7EB_4234_9781_E237657471AC__INCLUDED_
+#endif // !__INNER_RAYS_ENGINE_ENGINE_CLASS_H__

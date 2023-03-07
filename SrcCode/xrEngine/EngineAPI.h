@@ -4,8 +4,8 @@
 // Support for extension DLLs
 //****************************************************************************
 
-#if !defined(AFX_ENGINEAPI_H__CF21372B_C8B8_4891_82FC_D872C84E1DD4__INCLUDED_)
-#define AFX_ENGINEAPI_H__CF21372B_C8B8_4891_82FC_D872C84E1DD4__INCLUDED_
+#ifndef __INNER_RAYS_ENGINE_ENGINE_API_CLASS_H__
+#define __INNER_RAYS_ENGINE_ENGINE_API_CLASS_H__
 #pragma once
 
 // Abstract 'Pure' class for DLL interface
@@ -38,7 +38,9 @@ extern "C"
 class ENGINE_API CEngineAPI
 {
 public:
+	// Constructor
 	CEngineAPI();
+	// Destructor
 	~CEngineAPI();
 
 public:
@@ -62,4 +64,4 @@ private:
 #define NEW_INSTANCE(a)		Engine.External.pCreate(a)
 #define DEL_INSTANCE(a)		{ Engine.External.pDestroy(a); a = NULL; }
 
-#endif // !AFX_ENGINEAPI_H__CF21372B_C8B8_4891_82FC_D872C84E1DD4__INCLUDED_
+#endif // !__INNER_RAYS_ENGINE_ENGINE_API_CLASS_H__
