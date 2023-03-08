@@ -35,14 +35,15 @@
 #define VIRT_ERROR_SIZE 256
 #define VIRT_MESSAGE_SIZE 512
 
+
 /*[
 	Global variables
  ]*/
 
-ENGINE_API CInifile*			pGameIni = NULL;
 BOOL							g_bIntroFinished = FALSE;
 ENGINE_API bool					g_dedicated_server = false;
 
+ENGINE_API CInifile*			pGameIni = NULL;
 ENGINE_API CApplication*		pApp = NULL;
 static HWND						logoWindow = NULL;
 CTimer							phase_timer;
@@ -50,14 +51,12 @@ extern ENGINE_API BOOL			g_appLoaded = FALSE;
 
 HMODULE							hLauncher = NULL;
 
-//int							max_load_stage = 0;
-
-// Computing build id
+// For computing build id
 XRCORE_API LPCSTR				build_date;
 XRCORE_API u32					build_id;
 
 #ifdef MASTER_GOLD
-#define NO_MULTI_INSTANCES
+	#define NO_MULTI_INSTANCES
 #endif
 
 static int						start_day = 25;
@@ -93,7 +92,6 @@ LauncherFunc*					pLauncher = NULL;
 extern void Intro(void* fn);
 extern void Intro_DSHOW(void* fn);
 extern int PASCAL IntroDSHOW_wnd(HINSTANCE hInstC, HINSTANCE hInstP, LPSTR lpCmdLine, int nCmdShow);
-int doLauncher();
 void doBenchmark(LPCSTR name);
 extern void testbed(void);
 
@@ -133,21 +131,6 @@ void compute_build_id()
 	}
 }
 
-/*
-struct _SoundProcessor : public pureFrame
-{
-	virtual void OnFrame()
-	{
-		//Msg("------------- sound: %d [%3.2f,%3.2f,%3.2f]", u32(Device.dwFrame), VPUSH(Device.vCameraPosition));
-		Device.Statistic->Sound.Begin();
-		::Sound->update(Device.vCameraPosition, Device.vCameraDirection, Device.vCameraTop);
-		Device.Statistic->Sound.End();
-	}
-
-} SoundProcessor;
-*/
-
-
 void InitEngine()
 {
 	Engine.Initialize();
@@ -181,7 +164,6 @@ PROTECT_API void InitConsole()
 		Console = xr_new<CTextConsole>();
 	}
 #else
-	//else
 	{
 		Console = xr_new<CConsole>();
 	}
@@ -204,7 +186,7 @@ PROTECT_API void InitInput()
 	pInput = xr_new<CInput>(bCaptureInput);
 }
 
-void destroyInput()
+void DestroyInput()
 {
 	xr_delete(pInput);
 }
@@ -219,34 +201,38 @@ PROTECT_API void InitSound2()
 	CSound_manager_interface::_create(1);
 }
 
-void destroySound()
+void DestroySound()
 {
 	CSound_manager_interface::_destroy();
 }
-void destroySettings()
+
+void DestroySettings()
 {
 	xr_delete(pSettings);
 	xr_delete(pGameIni);
 }
-void destroyConsole()
+
+void DestroyConsole()
 {
 	Console->Execute("cfg_save");
 	Console->Destroy();
 	xr_delete(Console);
 }
-void destroyEngine()
+
+void DestroyEngine()
 {
 	Device.Destroy();
 	Engine.Destroy();
 }
 
-void execUserScript()
+void ExecuteUserScript()
 {
 	// Execute script
 
 	Console->Execute("unbindall");
 	Console->ExecuteScript(Console->ConfigFile);
 }
+
 void slowdownthread(void*)
 {
 	//Sleep(30 * 1000);
@@ -303,7 +289,7 @@ void CheckPrivilegySlowdown()
 void Startup()
 {
 	InitSound1();
-	execUserScript();
+	ExecuteUserScript();
 	InitSound2();
 
 	// Command line for auto start
@@ -349,28 +335,26 @@ void Startup()
 	xr_delete(pApp);
 	Engine.Event.Dump();
 
-	// Destroying
-	//destroySound();
-	destroyInput();
+	DestroyInput();
 
 	if (!g_bBenchmark && !g_SASH.IsRunning())
 	{
-		destroySettings();
+		DestroySettings();
 	}
 
 	LALib.OnDestroy();
 
 	if (!g_bBenchmark && !g_SASH.IsRunning())
 	{
-		destroyConsole();
+		DestroyConsole();
 	}
 	else
 	{
 		Console->Destroy();
 	}
 
-	destroySound();
-	destroyEngine();
+	DestroySound();
+	DestroyEngine();
 }
 
 static BOOL CALLBACK logDlgProc(HWND hw, UINT msg, WPARAM wp, LPARAM lp)
@@ -406,89 +390,6 @@ static BOOL CALLBACK logDlgProc(HWND hw, UINT msg, WPARAM wp, LPARAM lp)
 
 	return TRUE;
 }
-
-/*
-void test_rtc()
-{
-	CStatTimer tMc,tM,tC,tD;
-	u32 bytes=0;
-	tMc.FrameStart();
-	tM.FrameStart();
-	tC.FrameStart();
-	tD.FrameStart();
-	::Random.seed(0x12071980);
-	for (u32 test = 0; test < 10000; test++)
-	{
-		u32 in_size = ::Random.randI(1024, 256 * 1024);
-		u32 out_size_max = rtc_csize(in_size);
-		u8* p_in = xr_alloc<u8>(in_size);
-		u8* p_in_tst = xr_alloc<u8>(in_size);
-		u8* p_out = xr_alloc<u8>(out_size_max);
-
-		for (u32 git = 0; git < in_size; git++)
-		{
-			p_in[git] = (u8)::Random.randI(8);		// Garbage...
-		}
-
-		bytes += in_size;
-
-		tMc.Begin();
-		memcpy(p_in_tst, p_in, in_size);
-		tMc.End();
-
-		tM.Begin();
-		CopyMemory(p_in_tst,p_in,in_size);
-		tM.End();
-
-		tC.Begin();
-		u32 out_size = rtc_compress(p_out, out_size_max, p_in, in_size);
-		tC.End();
-
-		tD.Begin();
-		u32 in_size_tst = rtc_decompress(p_in_tst, in_size, p_out, out_size);
-		tD.End();
-
-		// Sanity check
-		R_ASSERT(in_size == in_size_tst);
-		for (u32 tit = 0; tit < in_size; tit++)
-		{
-			R_ASSERT(p_in[tit] == p_in_tst[tit]);	// Garbage...
-		}
-
-		xr_free(p_out);
-		xr_free(p_in_tst);
-		xr_free(p_in);
-	}
-
-	tMc.FrameEnd();
-	float rMc = 1000.f * (float(bytes) / tMc.result) / (1024.f * 1024.f);
-	tM.FrameEnd();
-	float rM = 1000.f * (float(bytes) / tM.result) / (1024.f * 1024.f);
-	tC.FrameEnd();
-	float rC = 1000.f * (float(bytes) / tC.result) / (1024.f * 1024.f);
-	tD.FrameEnd();
-	float rD = 1000.f * (float(bytes) / tD.result) / (1024.f * 1024.f);
-
-	Msg("* memcpy:        %5.2f M/s (%3.1f%%)", rMc,100.f * rMc / rMc);
-	Msg("* mm-memcpy:     %5.2f M/s (%3.1f%%)", rM,100.f * rM / rMc);
-	Msg("* compression:   %5.2f M/s (%3.1f%%)", rC,100.f * rC / rMc);
-	Msg("* decompression: %5.2f M/s (%3.1f%%)", rD,100.f * rD / rMc);
-}
-*/
-
-
-// video
-/*
-static HINSTANCE		g_hInstance;
-static HINSTANCE		g_hPrevInstance;
-static int				g_nCmdShow;
-
-void __cdecl intro_dshow_x(void*)
-{
-	IntroDSHOW_wnd(g_hInstance, g_hPrevInstance, "GameData\\Stalker_Intro.avi", g_nCmdShow);
-	g_bIntroFinished = TRUE;
-}
-*/
 
 
 struct damn_keys_filter
@@ -599,106 +500,8 @@ struct damn_keys_filter
 #undef dwFilterKeysStructSize
 #undef dwToggleKeysStructSize
 
-// Приблудина для SecuROM-а
-#include "securom_api.h"
-
-// Фунция для тупых требований THQ и тупых американских пользователей
-BOOL IsOutOfVirtualMemory()
-{
-	SECUROM_MARKER_HIGH_SECURITY_ON(1)
-
-	MEMORYSTATUSEX statex;
-	DWORD dwPageFileInMB = 0;
-	DWORD dwPhysMemInMB = 0;
-	HINSTANCE hApp = 0;
-	char pszError[VIRT_ERROR_SIZE];
-	char pszMessage[VIRT_MESSAGE_SIZE];
-
-	ZeroMemory(&statex, sizeof(MEMORYSTATUSEX));
-	statex.dwLength = sizeof(MEMORYSTATUSEX);
-
-	if (!GlobalMemoryStatusEx(&statex))
-	{
-		return 0;
-	}
-
-	dwPageFileInMB = (DWORD)(statex.ullTotalPageFile / (1024 * 1024));
-	dwPhysMemInMB = (DWORD)(statex.ullTotalPhys / (1024 * 1024));
-
-	// Довольно отфонарное условие
-	if ((dwPhysMemInMB > 500) && ((dwPageFileInMB + dwPhysMemInMB) > 2500))
-	{
-		return 0;
-	}
-
-	hApp = GetModuleHandle(NULL);
-
-	if (!LoadString(hApp, RC_VIRT_MEM_ERROR, pszError, VIRT_ERROR_SIZE))
-	{
-		return 0;
-	}
-
-	if (!LoadString(hApp, RC_VIRT_MEM_TEXT, pszMessage, VIRT_MESSAGE_SIZE))
-	{
-		return 0;
-	}
-
-	MessageBox(NULL, pszMessage, pszError, MB_OK | MB_ICONHAND);
-
-	SECUROM_MARKER_HIGH_SECURITY_OFF(1)
-
-	return 1;
-}
 
 #include "xr_ioc_cmd.h"
-
-//typedef void DUMMY_STUFF (const void*,const u32&,void*);
-//XRCORE_API DUMMY_STUFF	*g_temporary_stuff;
-
-//#define TRIVIAL_ENCRYPTOR_DECODER
-//#include "trivial_encryptor.h"
-
-//#define RUSSIAN_BUILD
-
-#if 0
-void foo()
-{
-	typedef std::map<int, int> TEST_MAP;
-	TEST_MAP temp;
-	temp.insert(std::make_pair(0, 0));
-	TEST_MAP::const_iterator I = temp.upper_bound(2);
-	if (I == temp.end())
-	{
-		OutputDebugString("end() returned\r\n");
-	}
-	else
-	{
-		OutputDebugString("last element returned\r\n");
-	}
-
-	typedef void* pvoid;
-
-	LPCSTR path = "d:\\network\\stalker_net2";
-	FILE* f = fopen(path, "rb");
-	int file_handle = _fileno(f);
-	u32 buffer_size = _filelength(file_handle);
-	pvoid buffer = xr_malloc(buffer_size);
-	size_t result = fread(buffer, buffer_size, 1, f);
-	R_ASSERT3(!buffer_size || (result && (buffer_size >= result)), "Cannot read from file", path);
-	fclose(f);
-
-	u32 compressed_buffer_size = rtc_csize(buffer_size);
-	pvoid compressed_buffer = xr_malloc(compressed_buffer_size);
-	u32 compressed_size = rtc_compress(compressed_buffer, compressed_buffer_size, buffer, buffer_size);
-
-	LPCSTR compressed_path = "d:\\network\\stalker_net2.rtc";
-	FILE* f1 = fopen(compressed_path, "wb");
-	fwrite(compressed_buffer, compressed_size, 1, f1);
-
-	fclose(f1);
-}
-#endif // 0
-
 
 
 int APIENTRY WinMain_impl(HINSTANCE hInstance, HINSTANCE hPrevInstance, char* lpCmdLine, int nCmdShow)
@@ -733,25 +536,15 @@ int APIENTRY WinMain_impl(HINSTANCE hInstance, HINSTANCE hPrevInstance, char* lp
 		}
 	}
 
-	//foo();
 #ifndef DEDICATED_SERVER
-
-	// Check for virtual memory
-	if ((strstr(lpCmdLine, "--skipmemcheck") == NULL) && IsOutOfVirtualMemory())
-	{
-		return 0;return 0;
-	}
-
 	// Check for another instance
 #ifdef NO_MULTI_INSTANCES
-#define STALKER_PRESENCE_MUTEX "STALKER-SoC"
-
 	HANDLE hCheckPresenceMutex = INVALID_HANDLE_VALUE;
-	hCheckPresenceMutex = OpenMutex(READ_CONTROL, FALSE, STALKER_PRESENCE_MUTEX);
+	hCheckPresenceMutex = OpenMutex(READ_CONTROL, FALSE, "InnerRaysEngine-S.T.A.L.K.E.R.");
 	if (hCheckPresenceMutex == NULL)
 	{
 		// New mutex
-		hCheckPresenceMutex = CreateMutex(NULL, FALSE, STALKER_PRESENCE_MUTEX);
+		hCheckPresenceMutex = CreateMutex(NULL, FALSE, "InnerRaysEngine-S.T.A.L.K.E.R.");
 		if (hCheckPresenceMutex == NULL)
 		{
 			// Shit happens
@@ -784,7 +577,7 @@ int APIENTRY WinMain_impl(HINSTANCE hInstance, HINSTANCE hPrevInstance, char* lp
 		HWND_TOPMOST,
 	#else
 		HWND_NOTOPMOST,
-	#endif // NDEBUG
+	#endif
 		0, 0, logoRect.right - logoRect.left, logoRect.bottom - logoRect.top, SWP_NOMOVE | SWP_SHOWWINDOW /*| SWP_NOSIZE*/);
 	UpdateWindow(logoWindow);
 
@@ -795,15 +588,11 @@ int APIENTRY WinMain_impl(HINSTANCE hInstance, HINSTANCE hPrevInstance, char* lp
 
 	LPCSTR fsgame_ltx_name = "-fsltx ";
 	string_path fsgame = "";
-	//MessageBox(0, lpCmdLine, "my cmd string", MB_OK);
 	if (strstr(lpCmdLine, fsgame_ltx_name))
 	{
 		int sz = xr_strlen(fsgame_ltx_name);
 		sscanf(strstr(lpCmdLine, fsgame_ltx_name) + sz, "%[^ ] ", fsgame);
-		//MessageBox(0, fsgame, "using fsltx", MB_OK);
 	}
-
-	//g_temporary_stuff = &trivial_encryptor::decode;
 
 	compute_build_id();
 	Core._initialize("xray", NULL, TRUE, fsgame[0] ? fsgame : NULL);
@@ -852,13 +641,6 @@ int APIENTRY WinMain_impl(HINSTANCE hInstance, HINSTANCE hPrevInstance, char* lp
 			return 0;
 		}
 
-		if (strstr(lpCmdLine, "-launcher"))
-		{
-			int l_res = doLauncher();
-			if (l_res != 0)
-				return 0;
-		};
-
 	#ifndef DEDICATED_SERVER
 		if (strstr(Core.Params, "-r2a"))
 		{
@@ -888,7 +670,7 @@ int APIENTRY WinMain_impl(HINSTANCE hInstance, HINSTANCE hPrevInstance, char* lp
 		Core._destroy();
 
 		// Check for need to execute something external
-		if (/*xr_strlen(g_sLaunchOnExit_params) && */xr_strlen(g_sLaunchOnExit_app))
+		if (xr_strlen(g_sLaunchOnExit_app))
 		{
 			// CreateProcess needs to return results to next two structures
 			STARTUPINFO si;
@@ -898,8 +680,7 @@ int APIENTRY WinMain_impl(HINSTANCE hInstance, HINSTANCE hPrevInstance, char* lp
 			ZeroMemory(&pi, sizeof(pi));
 			// We use CreateProcess to setup working folder
 			char const* temp_wf = (xr_strlen(g_sLaunchWorkingFolder) > 0) ? g_sLaunchWorkingFolder : NULL;
-			CreateProcess(g_sLaunchOnExit_app, g_sLaunchOnExit_params, NULL, NULL, FALSE, 0, NULL,
-				temp_wf, &si, &pi);
+			CreateProcess(g_sLaunchOnExit_app, g_sLaunchOnExit_params, NULL, NULL, FALSE, 0, NULL, temp_wf, &si, &pi);
 
 		}
 	#ifndef DEDICATED_SERVER
@@ -919,10 +700,7 @@ int stack_overflow_exception_filter(int exception_code)
 {
 	if (exception_code == EXCEPTION_STACK_OVERFLOW)
 	{
-		// Do not call _resetstkoflw here, because
-		// at this point, the stack is not yet unwound.
-		// Instead, signal that the handler (the __except block)
-		// is to be executed.
+		// Do not call _resetstkoflw here, because at this point, the stack is not yet unwound. Instead, signal that the handler (the __except block) is to be executed
 		return EXCEPTION_EXECUTE_HANDLER;
 	}
 	else
@@ -975,41 +753,6 @@ void FreeLauncher()
 	}
 }
 
-int doLauncher()
-{
-	/*
-	execUserScript();
-	InitLauncher();
-	int res = pLauncher(0);
-	FreeLauncher();
-	if (res == 1) // do benchmark
-	{
-		g_bBenchmark = true;
-	}
-
-	if (g_bBenchmark)
-	{							// Perform benchmark cycle
-		doBenchmark();
-
-		//InitLauncher();
-		//pLauncher(2);			// Show results
-		//FreeLauncher();
-
-		Core._destroy();
-		return 1;
-
-	}
-
-	if (res==8)
-	{							// Quit
-		Core._destroy();
-		return 1;
-	}
-	*/
-
-	return 0;
-}
-
 void doBenchmark(LPCSTR name)
 {
 	g_bBenchmark = true;
@@ -1041,7 +784,6 @@ void doBenchmark(LPCSTR name)
 			InitEngine();
 		}
 
-
 		Engine.External.Initialize();
 
 		strcpy_s(Console->ConfigFile, "user.ltx");
@@ -1055,18 +797,3 @@ void doBenchmark(LPCSTR name)
 		Startup();
 	}
 }
-
-/*
-u32 calc_progress_color(u32 idx, u32 total, int stage, int max_stage)
-{
-	if (idx > (total / 2))
-	{
-		idx = total - idx;
-	}
-
-	float kk = (float(stage + 1) / float(max_stage)) * (total / 2.0f);
-	float f = 1 / (exp((float(idx) - kk) * 0.5f) + 1.0f);
-
-	return color_argb_f(f, 1.0f, 1.0f, 1.0f);
-}
-*/

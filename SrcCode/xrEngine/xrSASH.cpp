@@ -251,12 +251,12 @@ void xrSASH::EndBenchmark()
 }
 
 void InitInput();
-void destroyInput();
+void DestroyInput();
 void InitEngine();
 void InitSound1();
 void InitSound2();
-void destroySound();
-void destroyEngine();
+void DestroySound();
+void DestroyEngine();
 
 void xrSASH::GetAllOptions()
 {
@@ -497,10 +497,10 @@ void xrSASH::ReleaseEngine()
 {
 	m_bReinitEngine = true;
 
-	destroyInput();
+	DestroyInput();
 	Console->Destroy();
-	destroySound();
-	destroyEngine();
+	DestroySound();
+	DestroyEngine();
 }
 
 oaOptionDataType xrSASH::GetOptionType( char* pszOptionName )
