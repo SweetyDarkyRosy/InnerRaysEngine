@@ -1,5 +1,5 @@
-#ifndef __XR_OBJECT_H__
-#define __XR_OBJECT_H__
+#ifndef __INNER_RAYS_ENGINE_OBJECT_CLASS_H__
+#define __INNER_RAYS_ENGINE_OBJECT_CLASS_H__
 
 #include "ispatial.h"
 #include "isheduled.h"
@@ -229,4 +229,4 @@ public:
 
 #pragma pack(pop)
 
-#endif // !__XR_OBJECT_H__
+#endif // !__INNER_RAYS_ENGINE_OBJECT_CLASS_H__

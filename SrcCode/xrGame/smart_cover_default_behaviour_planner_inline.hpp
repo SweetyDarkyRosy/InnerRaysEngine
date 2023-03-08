@@ -5,31 +5,31 @@
 //	Description : Default behaviour planner for target selector inline functions
 ////////////////////////////////////////////////////////////////////////////
 
-#ifndef SMART_COVER_DEFAULT_BEHAVIOUR_PLANNER_INLINE_HPP_INCLUDED
-#define SMART_COVER_DEFAULT_BEHAVIOUR_PLANNER_INLINE_HPP_INCLUDED
+#ifndef __INNER_RAYS_ENGINE_SMART_COVER_DEFAULT_BEHAVIOUR_PLANNER_CLASS_INLINE_IMPLEMENTATIONS_HPP__
+#define __INNER_RAYS_ENGINE_SMART_COVER_DEFAULT_BEHAVIOUR_PLANNER_CLASS_INLINE_IMPLEMENTATIONS_HPP__
 
-namespace smart_cover {
-
-IC	u32 const &default_behaviour_planner::idle_time				() const
+namespace smart_cover
 {
-	return				(m_idle_time);
-}
+	IC u32 const& default_behaviour_planner::idle_time() const
+	{
+		return m_idle_time;
+	}
 
-IC	void default_behaviour_planner::idle_time					(u32 const &value)
-{
-	m_idle_time			= value;
-}
+	IC void default_behaviour_planner::idle_time(u32 const& value)
+	{
+		m_idle_time = value;
+	}
 
-IC	u32 const &default_behaviour_planner::lookout_time			() const
-{
-	return				(m_lookout_time);
-}
+	IC u32 const& default_behaviour_planner::lookout_time() const
+	{
+		return m_lookout_time;
+	}
 
-IC	void default_behaviour_planner::lookout_time				(u32 const &value)
-{
-	m_lookout_time		= value;
-}
+	IC void default_behaviour_planner::lookout_time(u32 const& value)
+	{
+		m_lookout_time = value;
+	}
 
-} // namespace smart_cover
+} // !namespace smart_cover
 
-#endif // SMART_COVER_DEFAULT_BEHAVIOUR_PLANNER_INLINE_HPP_INCLUDED
+#endif // !__INNER_RAYS_ENGINE_SMART_COVER_DEFAULT_BEHAVIOUR_PLANNER_CLASS_INLINE_IMPLEMENTATIONS_HPP__

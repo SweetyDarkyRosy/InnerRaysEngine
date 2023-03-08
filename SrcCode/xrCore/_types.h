@@ -1,5 +1,5 @@
-#ifndef TYPES_H
-#define TYPES_H
+#ifndef __INNER_RAYS_ENGINE_TYPES_H__
+#define __INNER_RAYS_ENGINE_TYPES_H__
 
 /*[
 	Type definitions
@@ -69,4 +69,4 @@ typedef char				string4096[4096];
 
 typedef char				string_path[2 * _MAX_PATH];
 
-#endif // !TYPES_H
+#endif // !__INNER_RAYS_ENGINE_TYPES_H__

@@ -5,8 +5,8 @@
 //	Description : Action class for smart cover
 ////////////////////////////////////////////////////////////////////////////
 
-#ifndef SMART_COVER_ACTION_H_INCLUDED
-#define SMART_COVER_ACTION_H_INCLUDED
+#ifndef __INNER_RAYS_ENGINE_SMART_COVER_ACTION_CLASS_H__
+#define __INNER_RAYS_ENGINE_SMART_COVER_ACTION_CLASS_H__
 
 #include <boost/noncopyable.hpp>
 #include "smart_cover_detail.h"
@@ -15,43 +15,48 @@
 #include "associative_vector.h"
 
 
-namespace smart_cover{
-
-class action : private boost::noncopyable
+namespace smart_cover
 {
-private:
-	class animation_predicate {
+	class action : private boost::noncopyable
+	{
+	private:
+		class animation_predicate
+		{
+		public:
+			IC bool operator()(shared_str const& lhs, shared_str const& rhs) const
+			{
+				return (lhs._get() < rhs._get());
+			}
+
+		};
 
 	public:
-		IC	bool	operator()	(shared_str const &lhs, shared_str const &rhs) const
-		{
-			return			(lhs._get() < rhs._get());
-		}
-};
+		typedef xr_vector<shared_str>												Animations;
+		typedef associative_vector<shared_str, Animations*, animation_predicate>	AnimationList;
 
-public:
-	typedef xr_vector<shared_str>												Animations;
-	typedef associative_vector<shared_str, Animations*, animation_predicate>	AnimationList;
+	private:
+		AnimationList m_animations;
 
-private:
-	AnimationList			m_animations;
+		bool m_movement;
+		Fvector m_target_position;
 
-	bool					m_movement;
-	Fvector					m_target_position;
+	public:
+		action(luabind::object const& description);
+		~action();
 
-public:
-							action				(luabind::object const &description);
-							~action				();
-	IC	bool		const	&movement			() const;
-	IC	Fvector		const	&target_position	() const;
-	IC	Animations	const	&animations			(shared_str const& cover_id, shared_str const &id) const;
+	public:
+		IC bool const& movement() const;
+		IC Fvector const& target_position() const;
+		IC Animations const& animations(shared_str const& cover_id, shared_str const& id) const;
 
-private:
-		void				add_animation		(LPCSTR animation_type, luabind::object const &table);
-};
+	private:
+		void add_animation(LPCSTR animation_type, luabind::object const& table);
 
-} // namespace smart_cover
+	};
+
+} // !namespace smart_cover
+
 
 #include "smart_cover_action_inline.h"
 
-#endif // SMART_COVER_ACTION_H_INCLUDED
+#endif // !__INNER_RAYS_ENGINE_SMART_COVER_ACTION_CLASS_H__

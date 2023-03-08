@@ -18,7 +18,7 @@
 namespace SightManager
 {
 	enum ESightType;
-};
+} // !namespace SightManager
 */
 
 class CScriptGameObject;
@@ -51,15 +51,16 @@ public:
 	CScriptWatchAction();
 	virtual ~CScriptWatchAction();
 
-public:
 	IC CScriptWatchAction(SightManager::ESightType tWatchType);
 	IC CScriptWatchAction(SightManager::ESightType tWatchType, const Fvector& tDirection);
 	IC CScriptWatchAction(SightManager::ESightType tWatchType, CScriptGameObject* tpObjectToWatch, LPCSTR bone_to_watch = "");
-	// Searchlight look ///////////////////////////////////////////////
+	
+	// Searchlight look
 	CScriptWatchAction(const Fvector& tTarget, float vel1, float vel2);
 	IC CScriptWatchAction(CScriptGameObject* tpObjectToWatch, float vel1, float vel2);
-	///////////////////////////////////////////////////////////////////
-	
+
+
+public:
 	void SetWatchObject(CScriptGameObject* tpObjectToWatch);
 	IC void SetWatchType(SightManager::ESightType tWatchType);
 	IC void SetWatchDirection(const Fvector& tDirection);
