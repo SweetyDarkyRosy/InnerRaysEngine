@@ -273,9 +273,6 @@
     <ClInclude Include="trivial_encryptor.h">
       <Filter>General</Filter>
     </ClInclude>
-    <ClInclude Include="x_ray.h">
-      <Filter>General</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>General\Resources</Filter>
     </ClInclude>
@@ -631,6 +628,9 @@
       <Filter>OpenAutomate</Filter>
     </ClInclude>
     <ClInclude Include="SSoundProcessor.h" />
+    <ClInclude Include="CApplication.h">
+      <Filter>General</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="defines.cpp">
@@ -998,6 +998,9 @@
     </ClCompile>
     <ClCompile Include="xrSASH.cpp">
       <Filter>OpenAutomate</Filter>
+    </ClCompile>
+    <ClCompile Include="CApplication.cpp">
+      <Filter>General</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

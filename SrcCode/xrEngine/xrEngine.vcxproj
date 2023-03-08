@@ -469,6 +469,7 @@
     <ClInclude Include="CameraBase.h" />
     <ClInclude Include="CameraDefs.h" />
     <ClInclude Include="CameraManager.h" />
+    <ClInclude Include="CApplication.h" />
     <ClInclude Include="cf_dynamic_mesh.h" />
     <ClInclude Include="cl_intersect.h" />
     <ClInclude Include="CopyProtection.h" />
@@ -588,7 +589,6 @@
     <ClInclude Include="xr_ioc_cmd.h" />
     <ClInclude Include="xr_object.h" />
     <ClInclude Include="xr_object_list.h" />
-    <ClInclude Include="x_ray.h" />
     <ClInclude Include="_d3d_extensions.h" />
   </ItemGroup>
   <ItemGroup>
@@ -597,6 +597,7 @@
     <ClCompile Include="bone.cpp" />
     <ClCompile Include="CameraBase.cpp" />
     <ClCompile Include="CameraManager.cpp" />
+    <ClCompile Include="CApplication.cpp" />
     <ClCompile Include="cf_dynamic_mesh.cpp" />
     <ClCompile Include="CustomHUD.cpp" />
     <ClCompile Include="defines.cpp" />

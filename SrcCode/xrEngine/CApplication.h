@@ -1,19 +1,32 @@
-#ifndef __X_RAY_H__
-#define __X_RAY_H__
+/*
+	InnerRaysEngine game engine source code. Unlimited Snow Independent Studio. 2023.
 
-// References
-class ENGINE_API CGameFont;
+	This file is part of the xrEngine module.
+
+	@Name:			CApplication.h
+	@Created:		08.03.2023
+	@Programmer:	Viktoriia Pashchenko (SweetyDarkyRosy)
+
+	Game engine application class. */
+
+#ifndef __INNER_RAYS_ENGINE_APPLICATION_CLASS_H__
+#define __INNER_RAYS_ENGINE_APPLICATION_CLASS_H__
 
 #include "../Include/xrRender/FactoryPtr.h"
 #include "../Include/xrRender/ApplicationRender.h"
 
+
+// References
+class ENGINE_API CGameFont;
 
 class ENGINE_API CApplication :
 	public pureFrame,
 	public IEventReceiver
 {
 public:
+	// Constructors
 	CApplication();
+	// Destructors
 	~CApplication();
 
 public:
@@ -73,4 +86,4 @@ public:
 
 extern ENGINE_API CApplication*		pApp;
 
-#endif // !__X_RAY_H__
+#endif // !__INNER_RAYS_ENGINE_APPLICATION_CLASS_H__
