@@ -558,6 +558,7 @@
     <ClInclude Include="Shader_xrLC.h" />
     <ClInclude Include="SkeletonMotionDefs.h" />
     <ClInclude Include="SkeletonMotions.h" />
+    <ClInclude Include="SSoundProcessor.h" />
     <ClInclude Include="StatGraph.h" />
     <ClInclude Include="Stats.h" />
     <ClInclude Include="stdafx.h" />

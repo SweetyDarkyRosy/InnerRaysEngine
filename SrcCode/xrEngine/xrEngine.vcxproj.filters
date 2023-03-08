@@ -630,6 +630,7 @@
     <ClInclude Include="xrSASH.h">
       <Filter>OpenAutomate</Filter>
     </ClInclude>
+    <ClInclude Include="SSoundProcessor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="defines.cpp">

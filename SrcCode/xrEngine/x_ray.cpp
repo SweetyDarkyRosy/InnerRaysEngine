@@ -15,6 +15,7 @@
 
 #include "xr_input.h"
 #include "xr_ioconsole.h"
+#include "SSoundProcessor.h"
 #include "x_ray.h"
 #include "std_classes.h"
 #include "GameFont.h"
@@ -47,6 +48,7 @@ ENGINE_API bool					g_dedicated_server = false;
 ENGINE_API CApplication*		pApp = NULL;
 static HWND						logoWindow = NULL;
 static CTimer					phase_timer;
+static SSoundProcessor			SoundProcessor;
 extern ENGINE_API BOOL			g_appLoaded = FALSE;
 
 HMODULE							hLauncher = NULL;
@@ -134,6 +136,7 @@ void compute_build_id()
 	}
 }
 
+/*
 struct _SoundProcessor : public pureFrame
 {
 	virtual void OnFrame()
@@ -145,6 +148,7 @@ struct _SoundProcessor : public pureFrame
 	}
 
 } SoundProcessor;
+*/
 
 
 void InitEngine()
