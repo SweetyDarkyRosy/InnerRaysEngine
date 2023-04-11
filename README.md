@@ -7,8 +7,9 @@ Objectives of this project are to:
 * Eliminate drawbacks and bugs of the original game engine
 * Extend the functionality
 * Improve performance
-* Develop a new toolkit for developers (inluding brand new **editor**)
-* Implement the possibility of launching S.T.A.L.K.E.R.: Shadow of Chernobyl, S.T.A.L.K.E.R.: Clear Sky and S.T.A.L.K.E.R.: The Call of Pripyat games
+* Develop a new toolkit for developers (including brand new **editor**)
+* Implement the possibility of launching **S.T.A.L.K.E.R.: Shadow of Chernobyl**, **S.T.A.L.K.E.R.: Clear Sky** and **S.T.A.L.K.E.R.: The Call of Pripyat** games
+* Make the engine crossplatform and flexible for porting it on different platforms
 
 
 Features
