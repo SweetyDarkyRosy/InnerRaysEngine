@@ -1,4 +1,7 @@
 #include "pch_script.h"
+
+#include <xrEngine/CApplication.h>
+
 #include "gamepersistent.h"
 #include "../xrEngine/fmesh.h"
 #include "../xrEngine/xr_ioconsole.h"
@@ -28,6 +31,7 @@
 #ifndef _EDITOR
 #	include "ai_debug.h"
 #endif // _EDITOR
+
 
 #ifdef DEBUG_MEMORY_MANAGER
 	static	void *	ode_alloc	(size_t size)								{ return Memory.mem_alloc(size,"ODE");			}
@@ -705,8 +709,11 @@ void CGamePersistent::OnRenderPPUI_PP()
 {
 	MainMenu()->OnRenderPPUI_PP();
 }
+
+
 #include "string_table.h"
-#include "../xrEngine/x_ray.h"
+
+
 void CGamePersistent::LoadTitle(LPCSTR str)
 {
 	string512			buff;

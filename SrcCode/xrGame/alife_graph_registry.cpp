@@ -7,8 +7,11 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+
+#include <xrEngine/CApplication.h>
+
 #include "alife_graph_registry.h"
-#include "../xrEngine/x_ray.h"
+
 
 using namespace ALife;
 

@@ -1,16 +1,19 @@
 #include "stdafx.h"
+
+#include <xrEngine/CApplication.h>
+
 #include "level.h"
 #include "Level_Bullet_Manager.h"
 #include "xrserver.h"
 #include "game_cl_base.h"
 #include "xrmessages.h"
 #include "xrGameSpyServer.h"
-#include "../xrEngine/x_ray.h"
 #include "../xrEngine/device.h"
 #include "../xrEngine/IGame_Persistent.h"
 #include "../xrEngine/xr_ioconsole.h"
 #include "MainMenu.h"
 #include "string_table.h"
+
 
 extern	void	GetPlayerName_FromRegistry	(char* name, u32 const name_size);
 

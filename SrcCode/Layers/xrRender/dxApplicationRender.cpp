@@ -1,9 +1,11 @@
 #include "stdafx.h"
 
+#include <xrEngine/CApplication.h>
+
 #include "dxApplicationRender.h"
-#include "../../xrEngine/x_ray.h"
 
 #include "../../xrEngine/GameFont.h"
+
 
 void dxApplicationRender::Copy(IApplicationRender &_in)
 {

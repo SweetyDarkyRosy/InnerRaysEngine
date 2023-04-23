@@ -1,17 +1,20 @@
 #include "stdafx.h"
+
+#include <xrEngine/CApplication.h>
+
 //#include "../xrEngine/resourcemanager.h"
 //#include "../xrEngine/resourcemanager.h"
 #include "HUDmanager.h"
 #include "PHdynamicdata.h"
 #include "Physics.h"
 #include "level.h"
-#include "../xrEngine/x_ray.h"
 #include "../xrEngine/igame_persistent.h"
 #include "PhysicsGamePars.h"
 #include "ai_space.h"
 #include "game_cl_base.h"
 #include "NET_Queue.h"
 #include "file_transfer.h"
+
 
 extern	pureFrame*				g_pNetProcessor;
 

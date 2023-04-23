@@ -1,4 +1,7 @@
 #include "stdafx.h"
+
+#include <xrEngine/CApplication.h>
+
 #include "xrserver.h"
 #include "game_sv_single.h"
 #include "game_sv_deathmatch.h"
@@ -8,7 +11,6 @@
 #include "game_cl_artefacthunt.h"
 #include "game_cl_single.h"
 #include "MainMenu.h"
-#include "../xrEngine/x_ray.h"
 #include "file_transfer.h"
 #include "screenshot_server.h"
 #include "player_name_modifyer.h"
@@ -17,6 +19,7 @@
 #pragma warning(disable:4995)
 #include <malloc.h>
 #pragma warning(pop)
+
 
 LPCSTR xrServer::get_map_download_url(LPCSTR level_name, LPCSTR level_version)
 {

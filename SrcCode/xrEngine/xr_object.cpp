@@ -9,7 +9,6 @@
 #include "../Include/xrRender/RenderVisual.h"
 #include "../Include/xrRender/Kinematics.h"
 
-#include "x_ray.h"
 #include "GameFont.h"
 
 #include "mp_logging.h"

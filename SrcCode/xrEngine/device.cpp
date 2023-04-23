@@ -15,7 +15,6 @@
 #include <ThirdParty/DirectX/Include/d3dx9.h>
 #pragma warning(default:4995)
 
-#include "x_ray.h"
 #include "render.h"
 
 // must be defined before include of FS_impl.h
@@ -29,6 +28,8 @@
 
 #include "xrSash.h"
 #include "igame_persistent.h"
+
+#include "CApplication.h"
 
 
 ENGINE_API CRenderDevice		Device;

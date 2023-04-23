@@ -1,4 +1,7 @@
 #include "pch_script.h"
+
+#include <xrEngine/CApplication.h>
+
 #include "UIGameCustom.h"
 #include "ui.h"
 #include "level.h"
@@ -12,7 +15,7 @@
 #include "ui/UIActorMenu.h"
 #include "ui/UIPdaWnd.h"
 
-#include "../xrEngine/x_ray.h"
+
 EGameIDs ParseStringToGameType(LPCSTR str);
 struct predicate_remove_stat {
 	bool	operator() (SDrawStaticStruct& s) {

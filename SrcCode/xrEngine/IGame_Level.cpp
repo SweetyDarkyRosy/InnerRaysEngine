@@ -2,7 +2,6 @@
 #include "igame_level.h"
 #include "igame_persistent.h"
 
-#include "x_ray.h"
 #include "std_classes.h"
 #include "customHUD.h"
 #include "render.h"
@@ -10,6 +9,9 @@
 #include "xrLevel.h"
 #include "CameraManager.h"
 #include "xr_object.h"
+
+#include "CApplication.h"
+
 
 ENGINE_API	IGame_Level*	g_pGameLevel	= NULL;
 

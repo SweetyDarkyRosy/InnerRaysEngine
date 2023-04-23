@@ -7,6 +7,9 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+
+#include <xrEngine/CApplication.h>
+
 #include "alife_update_manager.h"
 #include "alife_simulator_header.h"
 #include "alife_time_manager.h"
@@ -18,10 +21,10 @@
 #include "xrserver.h"
 #include "level.h"
 #include "graph_engine.h"
-#include "../xrEngine/x_ray.h"
 #include "restriction_space.h"
 #include "profiler.h"
 #include "mt_config.h"
+
 
 using namespace ALife;
 

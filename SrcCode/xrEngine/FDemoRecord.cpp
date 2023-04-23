@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "igame_level.h"
-#include "x_ray.h"
 
 #include "gamefont.h"
 #include "fDemoRecord.h"
@@ -10,6 +9,9 @@
 #include "render.h"
 #include "CustomHUD.h"
 #include "CameraManager.h"
+
+#include "CApplication.h"
+
 
 extern BOOL g_bDisableRedText;
 static Flags32	s_hud_flag	= {0};
