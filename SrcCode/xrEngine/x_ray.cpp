@@ -28,10 +28,6 @@
 #include "Text_Console.h"
 
 
-#define dwStickyKeysStructSize sizeof(STICKYKEYS)
-#define dwFilterKeysStructSize sizeof(FILTERKEYS)
-#define dwToggleKeysStructSize sizeof(TOGGLEKEYS)
-
 #define VIRT_ERROR_SIZE 256
 #define VIRT_MESSAGE_SIZE 512
 
@@ -392,115 +388,6 @@ static BOOL CALLBACK logDlgProc(HWND hw, UINT msg, WPARAM wp, LPARAM lp)
 }
 
 
-struct damn_keys_filter
-{
-	BOOL bScreenSaverState;
-
-	// Sticky & Filter & Toggle keys
-
-	STICKYKEYS StickyKeysStruct;
-	FILTERKEYS FilterKeysStruct;
-	TOGGLEKEYS ToggleKeysStruct;
-
-	DWORD dwStickyKeysFlags;
-	DWORD dwFilterKeysFlags;
-	DWORD dwToggleKeysFlags;
-
-	damn_keys_filter()
-	{
-		// Screen saver stuff
-
-		bScreenSaverState = FALSE;
-
-		// Saveing current state
-		SystemParametersInfo(SPI_GETSCREENSAVEACTIVE, 0, (PVOID)&bScreenSaverState, 0);
-
-		if (bScreenSaverState)
-		{
-			// Disable screensaver
-			SystemParametersInfo(SPI_SETSCREENSAVEACTIVE, FALSE, NULL, 0);
-		}
-
-		dwStickyKeysFlags = 0;
-		dwFilterKeysFlags = 0;
-		dwToggleKeysFlags = 0;
-
-
-		ZeroMemory(&StickyKeysStruct, dwStickyKeysStructSize);
-		ZeroMemory(&FilterKeysStruct, dwFilterKeysStructSize);
-		ZeroMemory(&ToggleKeysStruct, dwToggleKeysStructSize);
-
-		StickyKeysStruct.cbSize = dwStickyKeysStructSize;
-		FilterKeysStruct.cbSize = dwFilterKeysStructSize;
-		ToggleKeysStruct.cbSize = dwToggleKeysStructSize;
-
-		// Saving current state
-		SystemParametersInfo(SPI_GETSTICKYKEYS, dwStickyKeysStructSize, (PVOID)&StickyKeysStruct, 0);
-		SystemParametersInfo(SPI_GETFILTERKEYS, dwFilterKeysStructSize, (PVOID)&FilterKeysStruct, 0);
-		SystemParametersInfo(SPI_GETTOGGLEKEYS, dwToggleKeysStructSize, (PVOID)&ToggleKeysStruct, 0);
-
-		if (StickyKeysStruct.dwFlags & SKF_AVAILABLE)
-		{
-			// Disable StickyKeys feature
-			dwStickyKeysFlags = StickyKeysStruct.dwFlags;
-			StickyKeysStruct.dwFlags = 0;
-			SystemParametersInfo(SPI_SETSTICKYKEYS, dwStickyKeysStructSize, (PVOID)&StickyKeysStruct, 0);
-		}
-
-		if (FilterKeysStruct.dwFlags & FKF_AVAILABLE)
-		{
-			// Disable FilterKeys feature
-			dwFilterKeysFlags = FilterKeysStruct.dwFlags;
-			FilterKeysStruct.dwFlags = 0;
-			SystemParametersInfo(SPI_SETFILTERKEYS, dwFilterKeysStructSize, (PVOID)&FilterKeysStruct, 0);
-		}
-
-		if (ToggleKeysStruct.dwFlags & TKF_AVAILABLE)
-		{
-			// Disable FilterKeys feature
-			dwToggleKeysFlags = ToggleKeysStruct.dwFlags;
-			ToggleKeysStruct.dwFlags = 0;
-			SystemParametersInfo(SPI_SETTOGGLEKEYS, dwToggleKeysStructSize, (PVOID)&ToggleKeysStruct, 0);
-		}
-	}
-
-	~damn_keys_filter()
-	{
-		if (bScreenSaverState)
-		{
-			// Restoring screen saver
-			SystemParametersInfo(SPI_SETSCREENSAVEACTIVE, TRUE, NULL, 0);
-		}
-
-		if (dwStickyKeysFlags)
-		{
-			// Restore StickyKeys feature
-			StickyKeysStruct.dwFlags = dwStickyKeysFlags;
-			SystemParametersInfo(SPI_SETSTICKYKEYS, dwStickyKeysStructSize, (PVOID)&StickyKeysStruct, 0);
-		}
-
-		if (dwFilterKeysFlags)
-		{
-			// Restore FilterKeys feature
-			FilterKeysStruct.dwFlags = dwFilterKeysFlags;
-			SystemParametersInfo(SPI_SETFILTERKEYS, dwFilterKeysStructSize, (PVOID)&FilterKeysStruct, 0);
-		}
-
-		if (dwToggleKeysFlags)
-		{
-			// Restore FilterKeys feature
-			ToggleKeysStruct.dwFlags = dwToggleKeysFlags;
-			SystemParametersInfo(SPI_SETTOGGLEKEYS, dwToggleKeysStructSize, (PVOID)&ToggleKeysStruct, 0);
-		}
-
-	}
-};
-
-#undef dwStickyKeysStructSize
-#undef dwFilterKeysStructSize
-#undef dwToggleKeysStructSize
-
-
 #include "xr_ioc_cmd.h"
 
 
@@ -607,8 +494,6 @@ int APIENTRY WinMain_impl(HINSTANCE hInstance, HINSTANCE hPrevInstance, char* lp
 
 	#ifndef DEDICATED_SERVER
 	{
-		damn_keys_filter filter;
-		(void)filter;
 	#endif
 
 		FPU::m24r();
@@ -690,7 +575,6 @@ int APIENTRY WinMain_impl(HINSTANCE hInstance, HINSTANCE hPrevInstance, char* lp
 		CloseHandle(hCheckPresenceMutex);
 	#endif
 	}
-	// here damn_keys_filter class instanse will be destroyed
 #endif
 
 	return 0;
